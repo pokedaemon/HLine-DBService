@@ -1,6 +1,7 @@
 package apiserver
 
 import (
+	"hlservice-db/internal/app/storage"
 	"io"
 	"net/http"
 
@@ -9,9 +10,10 @@ import (
 )
 
 type API struct {
-	config *Config
-	logger *logrus.Logger
-	router *mux.Router
+	config  *Config
+	logger  *logrus.Logger
+	router  *mux.Router
+	storage *storage.Storage
 }
 
 // New create new API service
@@ -26,6 +28,9 @@ func New(config *Config) *API {
 // Start
 func (a *API) Start() error {
 	if err := a.configureLogger(); err != nil {
+		return err
+	}
+	if err := a.configureStorage(); err != nil {
 		return err
 	}
 
@@ -50,6 +55,17 @@ func (a *API) configureLogger() error {
 // configureRouter handle all endpoints what we need
 func (a *API) configureRouter() {
 	a.router.HandleFunc("/hello", a.handleHello())
+}
+
+func (a *API) configureStorage() error {
+	st := storage.New(a.config.Storage)
+	if err := st.Open(); err != nil {
+		return err
+	}
+
+	a.storage = st
+
+	return nil
 }
 
 func (a *API) handleHello() http.HandlerFunc {

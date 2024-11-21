@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestAPI_handleHello(t *testing.T) {
+func TestAPIHandleHello(t *testing.T) {
 	s := New(NewConfig())
 
 	rec := httptest.NewRecorder()
