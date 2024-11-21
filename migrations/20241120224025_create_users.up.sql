@@ -1,4 +1,4 @@
-create table region (
+create table Region (
     id serial not null primary key,
     name varchar(255) unique not null
 );
@@ -60,10 +60,10 @@ insert into region (name) values
 ('Ярославская область'),
 ('Ямало-Ненецкий автономный округ');
 
-create table users (
+create table Users (
     id bigserial not null primary key,
     name text not null,
     email text unique not null, 
     phone_number varchar(11),
-    region_id integer references region (id)
+    region_id integer references Region (id)
 );

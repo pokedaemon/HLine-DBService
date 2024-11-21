@@ -6,6 +6,6 @@ type Config struct {
 
 func NewConfig() *Config {
 	return &Config{
-		DatabaseURL: "host=localhost dbname=reverseshop sslmode=disable",
+		DatabaseURL: "host=localhost dbname=reverseshoptest sslmode=disable",
 	}
 }
