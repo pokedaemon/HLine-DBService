@@ -1,9 +1,9 @@
-create table Region (
+create table Regions (
     id serial not null primary key,
     name varchar(255) unique not null
 );
 
-insert into region (name) values
+insert into Regions (name) values
 ('Москва'),
 ('Санкт-Петербург'),
 ('Республика Адыгея'),
@@ -60,10 +60,34 @@ insert into region (name) values
 ('Ярославская область'),
 ('Ямало-Ненецкий автономный округ');
 
+create table Status (
+    id serial not null primary key,
+    name text unique not null, 
+);
+
+insert into Status (name) values
+('Связь c оператором'),
+('Формирование'),
+('В пути'), 
+('Принят');
+
 create table Users (
     id bigserial not null primary key,
     name text not null,
     email text unique not null, 
     phone_number varchar(11),
     region_id integer references Region (id)
+);
+
+create table Goods (
+    id serial not null primary key,
+    name text not null,
+    count integer not null check(count >= 0)
+);
+
+create table Orders (
+    user_id integer not null references Users (id),
+    good integer not null references Goods (id),
+    count integer not null,
+    status integer not null references Status (id)
 );

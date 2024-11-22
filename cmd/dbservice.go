@@ -1,26 +1,16 @@
 package main
 
 import (
-	"flag"
+	"hlservice-db/cmd/flags"
 	apiserver "hlservice-db/internal/app/api"
 	"log"
 
 	"github.com/BurntSushi/toml"
 )
 
-var (
-	configPath string
-)
-
-func init() {
-	flag.StringVar(&configPath, "config-path", "configs/serviceconfig.toml", "path to config file(toml)")
-}
-
 func main() {
-	flag.Parse()
-
 	config := apiserver.NewConfig()
-	_, err := toml.DecodeFile(configPath, config)
+	_, err := toml.DecodeFile(flags.ConfigPath, config)
 	if err != nil {
 		log.Fatal(err)
 	}

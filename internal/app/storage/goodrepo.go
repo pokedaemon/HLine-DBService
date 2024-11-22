@@ -10,3 +10,11 @@ type GoodRepoImpl interface {
 type GoodRepo struct {
 	storage *Storage
 }
+
+func (r *GoodRepo) Create(g *model.Good) (*model.Good, error) {
+	return nil, nil
+}
+
+func (r *GoodRepo) FindByName(name string) (*model.Good, error) {
+	return nil, nil
+}

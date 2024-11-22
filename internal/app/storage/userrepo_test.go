@@ -22,3 +22,15 @@ func TestUserRepo_Create(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotNil(t, u)
 }
+
+func TestUserRepo_FindByPhoneNumber(t *testing.T) {
+
+}
+
+func TestUserRepo_FindByName(t *testing.T) {
+
+}
+
+func TestUserRepo_FindByEmail(t *testing.T) {
+
+}

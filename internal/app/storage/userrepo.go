@@ -30,3 +30,11 @@ func (r *UserRepo) Create(u *model.User) (*model.User, error) {
 func (r *UserRepo) FindByEmail(email string) (*model.User, error) {
 	return nil, nil
 }
+
+func (r *UserRepo) FindByName(name string) (*model.User, error) {
+	return nil, nil
+}
+
+func (r *UserRepo) FindByPhoneNumber(number string) (*model.User, error) {
+	return nil, nil
+}
