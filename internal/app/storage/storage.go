@@ -44,9 +44,9 @@ func (s *Storage) User() UserRepoImpl {
 	if s.user != nil {
 		return s.user
 	}
-
-	s.user = &UserRepo{
+	// TODO: Uncomment this after realization UserRepo
+	s.user = nil /*&UserRepo{
 		storage: s,
-	}
+	}*/
 	return s.user
 }
