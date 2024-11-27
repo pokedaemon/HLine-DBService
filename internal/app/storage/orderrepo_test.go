@@ -9,8 +9,9 @@ import (
 )
 
 func TestOrderRepo_Create(t *testing.T) {
-	s, _ := storage.TestStorage(t, testDatabaseURL)
+	s, teardown := storage.TestStorage(t, testDatabaseURL)
 	defer s.Close()
+	defer teardown("Orders", "Users")
 
 	_, err := s.User().Create(&model.User{
 		Name:        "Nikita Tutov",
@@ -35,7 +36,14 @@ func TestOrderRepo_Create(t *testing.T) {
 func TestOrderRepo_UpdateStatus(t *testing.T) {
 	s, teardown := storage.TestStorage(t, testDatabaseURL)
 	defer s.Close()
-	defer teardown("Orders")
+	defer teardown("Orders", "Users")
+
+	_, err := s.User().Create(&model.User{
+		Name:        "Nikita Tutov",
+		Email:       "nikita@tutov.com",
+		PhoneNumber: "78120005252",
+		Region:      "Курская область",
+	})
 
 	o, err := s.Order().Create(&model.Order{
 		Email:  "nikita@tutov.com",
