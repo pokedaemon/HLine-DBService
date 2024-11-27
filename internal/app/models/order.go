@@ -1,8 +1,8 @@
 package model
 
 type Order struct {
-	UserID int
-	Good   int
+	Email  string
+	Good   string
 	Count  int
 	Status int
 }

@@ -10,6 +10,7 @@ import (
 
 func TestUserRepo_Create(t *testing.T) {
 	s, teardown := storage.TestStorage(t, testDatabaseURL)
+	defer s.Close()
 	defer teardown("Users")
 
 	u, err := s.User().Create(&model.User{

@@ -15,7 +15,10 @@ type UserRepo struct {
 }
 
 func (r *UserRepo) Create(u *model.User) (*model.User, error) {
-	query := `INSERT INTO Users (name, email, phone_number, region_id) values ($1, $2, $3, (select id from region where name = $4)) returning id;`
+	query := `INSERT INTO Users 
+	(name, email, phone_number, region_id) VALUES 
+	($1, $2, $3, (SELECT id FROM regions WHERE name = $4))
+	RETURNING id`
 	err := r.storage.db.QueryRow(
 		query,
 		u.Name, u.Email, u.PhoneNumber, u.Region,

@@ -18,9 +18,10 @@ func TestStorage(t *testing.T, dbURL string) (*Storage, func(...string)) {
 		t.Fatal(err)
 	}
 
+	// truncate just dynamic tables!!!
 	return s, func(tables ...string) {
 		if len(tables) > 0 {
-			if _, err := s.db.Exec(fmt.Sprintf("truncate %s cascade", strings.Join(tables, ""))); err != nil {
+			if _, err := s.db.Exec(fmt.Sprintf("truncate %s cascade", strings.Join(tables, ", "))); err != nil {
 				t.Fatal(err)
 			}
 		}

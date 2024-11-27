@@ -62,7 +62,7 @@ insert into Regions (name) values
 
 create table Status (
     id serial not null primary key,
-    name text unique not null, 
+    name text unique not null 
 );
 
 insert into Status (name) values
@@ -76,7 +76,7 @@ create table Users (
     name text not null,
     email text unique not null, 
     phone_number varchar(11),
-    region_id integer references Region (id)
+    region_id integer references Regions (id)
 );
 
 create table Goods (
@@ -84,6 +84,13 @@ create table Goods (
     name text not null,
     count integer not null check(count >= 0)
 );
+
+insert into Goods (name, count) values
+('Куртки зимние(мужские)', 1000),
+('Куртки зимние(женские)', 1000),
+('Ботинки зимние(мужские)', 1000),
+('Ботинки зимние(женские)', 1000),
+('Сапоги зимние(детские)', 1000);
 
 create table Orders (
     user_id integer not null references Users (id),

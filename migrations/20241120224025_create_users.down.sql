@@ -1,5 +1,5 @@
+drop table Orders;
 drop table Users;
-drop table Region;
-drop table \"Status\";
-drop table Order;
-drop table Good;
+drop table Status;
+drop table Goods;
+drop table Regions;
