@@ -85,13 +85,6 @@ create table Goods (
     count integer not null check(count >= 0)
 );
 
-insert into Goods (name, count) values
-('Куртки зимние(мужские)', 1000),
-('Куртки зимние(женские)', 1000),
-('Ботинки зимние(мужские)', 1000),
-('Ботинки зимние(женские)', 1000),
-('Сапоги зимние(детские)', 1000);
-
 create table Orders (
     user_id integer not null references Users (id),
     good integer not null references Goods (id),
