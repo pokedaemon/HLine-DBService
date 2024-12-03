@@ -86,6 +86,7 @@ create table Goods (
 );
 
 create table Orders (
+    id varchar(10) not null primary key,
     user_id integer not null references Users (id),
     good integer not null references Goods (id),
     count integer not null,

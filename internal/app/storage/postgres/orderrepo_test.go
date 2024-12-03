@@ -2,6 +2,7 @@ package postgres_test
 
 import (
 	model "hlservice-db/internal/app/models"
+	"hlservice-db/internal/app/storage"
 	"hlservice-db/internal/app/storage/postgres"
 	"testing"
 
@@ -14,14 +15,14 @@ func TestOrderRepo_Create(t *testing.T) {
 
 	s := postgres.New(db)
 
-	_, err := s.Good().Create(&model.Good{
+	err := s.Good().Create(&model.Good{
 		Name:  "Куртки зимние(мужские)",
 		Count: 1000,
 	})
 
 	assert.NoError(t, err)
 
-	u, err := s.User().Create(&model.User{
+	err = s.User().Create(&model.User{
 		Name:        "Nikita Tutov",
 		Email:       "nikita@tutov.com",
 		PhoneNumber: "78120005252",
@@ -29,9 +30,8 @@ func TestOrderRepo_Create(t *testing.T) {
 	})
 
 	assert.NoError(t, err)
-	assert.NotNil(t, u)
 
-	o, err := s.Order().Create(&model.Order{
+	err = s.Order().Create(&model.Order{
 		Email:  "nikita@tutov.com",
 		Good:   "Куртки зимние(мужские)",
 		Count:  25,
@@ -39,9 +39,7 @@ func TestOrderRepo_Create(t *testing.T) {
 	})
 
 	assert.NoError(t, err)
-	assert.NotNil(t, o)
 
-	t.Log(*o)
 }
 
 func TestOrderRepo_UpdateStatus(t *testing.T) {
@@ -50,14 +48,14 @@ func TestOrderRepo_UpdateStatus(t *testing.T) {
 
 	s := postgres.New(db)
 
-	_, err := s.Good().Create(&model.Good{
+	err := s.Good().Create(&model.Good{
 		Name:  "Куртки зимние(женские)",
 		Count: 1000,
 	})
 
 	assert.NoError(t, err)
 
-	_, err = s.User().Create(&model.User{
+	err = s.User().Create(&model.User{
 		Name:        "Nikita Tutov",
 		Email:       "nikita@tutov.com",
 		PhoneNumber: "78120005252",
@@ -66,7 +64,8 @@ func TestOrderRepo_UpdateStatus(t *testing.T) {
 
 	assert.NoError(t, err)
 
-	o, err := s.Order().Create(&model.Order{
+	err = s.Order().Create(&model.Order{
+		ID:     "432543",
 		Email:  "nikita@tutov.com",
 		Good:   "Куртки зимние(женские)",
 		Count:  52,
@@ -74,13 +73,8 @@ func TestOrderRepo_UpdateStatus(t *testing.T) {
 	})
 
 	assert.NoError(t, err)
-	assert.NotNil(t, o)
 
-	status, err := s.Order().UpdateStatus(&model.Order{
-		Email:  "nikita@tutov.com",
-		Status: 2,
-	})
+	err = s.Order().UpdateStatus(storage.OrderStatusSecond, "432543")
 
 	assert.NoError(t, err)
-	assert.NotNil(t, status)
 }

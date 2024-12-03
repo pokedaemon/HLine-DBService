@@ -20,7 +20,16 @@ func (r *UserRepo) Create(u *model.User) error {
 }
 
 func (r *UserRepo) FindByEmail(email string) (*model.User, error) {
-	return nil, nil
+	user := &model.User{}
+	query := ``
+	err := r.storage.db.QueryRow(
+		query,
+		email).Scan(
+		&user.ID, &user.Name, &user.PhoneNumber, &user.Region)
+	if err != nil {
+		return nil, err
+	}
+	return user, err
 }
 
 func (r *UserRepo) FindByName(name string) (*model.User, error) {

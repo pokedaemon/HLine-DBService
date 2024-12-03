@@ -16,5 +16,12 @@ type GoodRepository interface {
 
 type OrderRepository interface {
 	Create(o *model.Order) error // return a user_id in db of just created user
-	UpdateStatus(status string) (*model.Order, error)
+	UpdateStatus(status string, order string) error
 }
+
+const (
+	OrderStatusFirst  = "Связь с оператором"
+	OrderStatusSecond = "Формирование"
+	OrderStatusThird  = "В пути"
+	OrderStatusFourth = "Принят"
+)

@@ -23,5 +23,13 @@ func Start(config *Config) error {
 
 func db(url string) (*sql.DB, error) {
 	db, err := sql.Open("postgres", url)
-	return db, err
+	if err != nil {
+		return nil, err
+	}
+
+	if err := db.Ping(); err != nil {
+		return nil, err
+	}
+
+	return db, nil
 }
